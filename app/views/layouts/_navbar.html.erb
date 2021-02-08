@@ -1,15 +1,15 @@
-<header class="mb-4">
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Microposts</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a href="#" class="nav-link">Signup</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
+<header>
+  <% if logged_in? %>
+    <nav>
+      <ul>
+        <li><%= link_to 'logout', logout_path %></li>
       </ul>
-    </div>
-  </nav>
+    </nav>
+  <% else %>
+    <nav>
+      <ul>
+        <li><%= link_to 'login', login_path, method: :delete %></li>
+      </ul>
+    </nav>
+  <% end %>
 </header>
