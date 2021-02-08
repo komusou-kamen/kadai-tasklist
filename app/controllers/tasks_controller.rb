@@ -3,18 +3,18 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   
   def index
-      @tasks = Task.all
+    @tasks = current_user.tasks.order(id: :desc).page(params[:page])
   end
 
   def show
   end
 
   def new
-      @task = Task.new
+      @task = current_user.tasks.build
   end
 
   def create
-      @task = Task.new(task_params)
+      @task = current_user.tasks.build(task_params)
 
     if @task.save
       flash[:success] = 'タスク が正常に作成されました'
