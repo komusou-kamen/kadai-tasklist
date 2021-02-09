@@ -1,6 +1,6 @@
 <h1>sing up</h1>
 
-    <%= form_with(model: @user, local: true) do |f| %>
+    <%= form_with(model: @user, local: true, url: signup_path) do |f| %>
       
       <div>
         <%= f.label :name, 'Name' %>

@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy'
     
   get 'signup', to: 'users#new'
-  resources :users, only: [:new, :create]
-  #post 'signup', to: 'users#new'??
+  resources :users, only: [:new]
+  #resources :users
+  post 'signup', to: 'users#create'
   
   resources :tasks
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

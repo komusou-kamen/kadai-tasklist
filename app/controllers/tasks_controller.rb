@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   before_action :require_user_logged_in
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:update, :destroy]
+  before_action :check_user, only: [:show, :edit]
+  
   
   def index
     @tasks = current_user.tasks.order(id: :desc).page(params[:page])
@@ -19,6 +21,8 @@ class TasksController < ApplicationController
     if @task.save
       flash[:success] = 'タスク が正常に作成されました'
       redirect_to @task
+      #redirect_to tasks_path # indexに飛ばしたい場合はこれでOK
+      
     else
       flash.now[:danger] = 'タスク が作成されませんでした'
       render :new
@@ -49,6 +53,18 @@ class TasksController < ApplicationController
   
   def set_task
     @task = Task.find(params[:id])
+  end
+  
+  def check_user
+    if current_user.id == Task.find_by_id(params[:id]).try(:user_id)
+      @task = Task.find(params[:id])
+    else 
+      @task = nil
+    end
+    # 参考
+    #unless current_user.tasks.where(id: params[:id])
+    #  redirect_to root_path 
+    #end
   end
 
 
