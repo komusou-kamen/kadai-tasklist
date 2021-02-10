@@ -1,6 +1,16 @@
 <h1>sing up</h1>
 
     <%= form_with(model: @user, local: true, url: signup_path) do |f| %>
+    
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
       
       <div>
         <%= f.label :name, 'Name' %>
