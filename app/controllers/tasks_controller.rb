@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :require_user_logged_in
-  before_action :set_task, only: [:update, :destroy]
-  before_action :check_user, only: [:show, :edit]
+  #before_action :set_task, only: [:update, :destroy]
+  before_action :correct_user, only: [:show, :edit, :update, :dastroy ]
   
   
   def index
@@ -51,21 +51,29 @@ class TasksController < ApplicationController
   
   private
   
-  def set_task
-    @task = Task.find(params[:id])
+  #def set_task
+  #  @task = Task.find(params[:id])
+  #end
+  
+  def correct_user
+    @task = current_user.tasks.find_by(id: params[:id])
+    unless @task
+      redirect_to root_url
+    end
   end
   
-  def check_user
-    if current_user.id == Task.find_by_id(params[:id]).try(:user_id)
-      @task = Task.find(params[:id])
-    else 
-      @task = nil
-    end
+  #def check_user
+   # if current_user.id == Task.find_by_id(params[:id]).try(:user_id)
+    #  @task = Task.find(params[:id])
+    #else 
+    #  redirect_to root_path
+      #@task = nil
+    #end
     # 参考
     #unless current_user.tasks.where(id: params[:id])
     #  redirect_to root_path 
     #end
-  end
+#  end
 
 
   # Strong Parameter
