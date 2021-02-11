@@ -2,13 +2,13 @@
   <% if logged_in? %>
     <nav>
       <ul>
-        <li><%= link_to 'logout', logout_path %></li>
+        <li><%= link_to 'logout', logout_path, method: :delete %></li>
       </ul>
     </nav>
   <% else %>
     <nav>
       <ul>
-        <li><%= link_to 'login', login_path, method: :delete %></li>
+        <li><%= link_to 'login', login_path %></li>
       </ul>
     </nav>
   <% end %>
